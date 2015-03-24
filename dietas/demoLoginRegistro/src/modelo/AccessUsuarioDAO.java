@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import modelo.ConexionBD;
 import modelo.DAOFactoria;
@@ -105,7 +106,7 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 	@Override
 	public Usuario findByUsuario(String usuario) throws SQLException {
 		String queryByUser = "SELECT d.estado,d.delMun,d.colonia,d.cp,d.calle,d.numExt,d.numInt, u.idUsuario,u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM direccion as d INNER JOIN usuario as u on d.idDireccion=u.idUsuario "
-				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario  where u.correo= ? ";
+				+ " INNER JOIN TipoUsuario as t ON u.TipoUsuario_TipoUsuario=t.TipoUsuario  where u.correo= ? ";
 		
 		PreparedStatement prepStmt = con.builldPreparedStatement(queryByUser);
 
@@ -304,8 +305,7 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 	}
 
 
-
-	@Override
+	
 	public String getIdUsuario(String correo) throws SQLException {
 		String query="SELECT idUsuario from Usuario where correo='"+correo+"'";
 		ResultSet res=con.query(query);

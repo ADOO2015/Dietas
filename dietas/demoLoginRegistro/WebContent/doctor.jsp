@@ -122,7 +122,7 @@
                    
                     <a href="#" class="list-group-item"><img src="img/iconos/Dieta.svg" id="icn"/> Dieta
                     </a>
-                    <a href="#" class="list-group-item"><img src="img/iconos/Progreso.svg" id="icn"/> Progreso
+                    <a href="MiProgreso" class="list-group-item"><img src="img/iconos/Progreso.svg" id="icn"/> Progreso
                     </a>
                     </a>
                     <a href="#" class="list-group-item"><img src="img/iconos/historial.svg" id="icn"/> Historial
