@@ -83,6 +83,8 @@
 													out.println("<label id=\"error\">Contraseña incorrecta<label>");
 												else if(sesion.getAttribute("tipo").equals("incorrecto"))
 													out.println("<label id=\"error\">Contraseña incorrecta<label>");
+												else if(sesion.getAttribute("tipo").equals("DI"))
+													out.println("<label id=\"error\">Campos incompletos<label>");
 									
 											}
 									}

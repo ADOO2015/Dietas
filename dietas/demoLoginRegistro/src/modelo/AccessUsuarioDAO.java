@@ -104,9 +104,19 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
+	public int estaRegistrado(String id) throws SQLException{
+		String query ="select * from MedicoPaciente where Paciente_idUsuarioPaciente= ?";
+		PreparedStatement prepStmt = con.builldPreparedStatement(query);
+		prepStmt.setString(1, id);
+		ResultSet rs = prepStmt.executeQuery();
+		if(rs.next()){
+			return 1;
+		}else
+			return 0;
+	}
 	public Usuario findByUsuario(String usuario) throws SQLException {
 		String queryByUser = "SELECT d.estado,d.delMun,d.colonia,d.cp,d.calle,d.numExt,d.numInt, u.idUsuario,u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM direccion as d INNER JOIN usuario as u on d.idDireccion=u.idUsuario "
-				+ " INNER JOIN TipoUsuario as t ON u.TipoUsuario_TipoUsuario=t.TipoUsuario  where u.correo= ? ";
+				+ " INNER JOIN TipoUsuario as t ON u.TipoUsuario_TipoUsuario=t.TipoUsuario  where u.correo= ?";
 		
 		PreparedStatement prepStmt = con.builldPreparedStatement(queryByUser);
 
@@ -139,6 +149,7 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 		return usuarioObj;
 
 	}
+	
 	public Usuario findByContrasena(String password) throws SQLException {
 		String queryByUser = "SELECT d.estado,d.delMun,d.colonia,d.cp,d.calle,d.numExt,d.numInt, u.idUsuario,u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM direccion as d INNER JOIN usuario as u on d.idDireccion=u.idUsuario "
 				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario  where u.pass= ? ";

@@ -21,8 +21,12 @@ public class AccessUser {
 			
 			if(myuser !=null && myuser.getPassword().equals(password)){
 				tipo =myuser.getTipo();
-				System.out.println(tipo);
 				usuario=myuser;
+				if(tipo.equals("Paciente")){
+					int esr= busca.estaRegistrado(usuario.getId());
+					if(esr==0)
+						tipo ="PN";
+				}
 			}else if(myuser==null && myuser1==null)
 				tipo ="incorrecto";
 			else if(myuser1==null && myuser!=null){
@@ -37,8 +41,5 @@ public class AccessUser {
 		System.out.println(tipo);
 		return tipo;
 	}
-	public static void main(String a[]){
-		AccessUser as = new AccessUser();
-		System.out.println(as.Accesa("moica","moi"));
-	}
+	
 }

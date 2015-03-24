@@ -35,6 +35,9 @@ public interface UsuarioDAO {
 	
 	public String selectLastID() throws SQLException;
 
+	int estaRegistrado(String id) throws SQLException;
+
+
 }
 
 

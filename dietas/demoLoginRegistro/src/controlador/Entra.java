@@ -34,8 +34,12 @@ public class Entra extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		AccessUser a= new AccessUser();
 		tipo=a.Accesa(request.getParameter("txtEmail"), request.getParameter("txtPass"));
+		if(request.getParameter("txtPass").equals("") ||request.getParameter("txtEmail").equals("") ){
+			tipo = "DI";
+		}
 		response.setContentType("text/html");
 		HttpSession sesion = request.getSession();
 		
