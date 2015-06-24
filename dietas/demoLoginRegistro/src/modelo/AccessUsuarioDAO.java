@@ -6,6 +6,11 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import modelo.ConexionBD;
+import modelo.DAOFactoria;
+import modelo.Usuario;
+import modelo.UsuarioDAO;
+
 public class AccessUsuarioDAO implements UsuarioDAO {
 
 	private ConexionBD con = ConexionBD.getInstance();
@@ -65,7 +70,8 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 	@Override
 	public Usuario findByUsuario(String usuario) throws SQLException {
-		String queryByUser = "SELECT * FROM USUARIO WHERE usuario.usuario = ?";
+		String queryByUser = "SELECT u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM Usuario as u"
+				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario";
 
 		PreparedStatement prepStmt = con.builldPreparedStatement(queryByUser);
 
@@ -77,11 +83,13 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 		if (rs.next()) {
 			usuarioObj = new Usuario();
-			usuarioObj.setUsuario(rs.getString("usuario"));
+			//usuarioObj.setUsuario(rs.getString("correo"));
 			usuarioObj.setNombre(rs.getString("nombre"));
-			usuarioObj.setApellidos(rs.getString("apellidos"));
+			usuarioObj.setApellidos(rs.getString("apellido"));
+			usuarioObj.setSexo(rs.getString("sexo"));
 			usuarioObj.setCorreo(rs.getString("correo"));
 			usuarioObj.setPassword(rs.getString("password"));
+			usuarioObj.setTipo(rs.getString("Descripcion"));
 		}
 
 		return usuarioObj;

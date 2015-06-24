@@ -11,7 +11,15 @@ public class Usuario {
 	private String correo;
 	
 	private String password;
+	
+	private String tipo;
 
+	private String sexo;
+	
+	public String getTipo() {
+		return tipo;
+	}
+	
 	public String getPassword() {
 		return password;
 	}
@@ -50,6 +58,14 @@ public class Usuario {
 
 	public void setCorreo(String correo) {
 		this.correo = correo;
+	}
+	
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+
+	public void setSexo(String sexo) {
+		this.sexo=sexo;
 	}
 	
 	
