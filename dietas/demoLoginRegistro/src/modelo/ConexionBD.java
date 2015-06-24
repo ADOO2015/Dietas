@@ -11,17 +11,14 @@ public class ConexionBD {
 
     static Connection con;
     
-    private static ConexionBD INSTANCE = null;
-    
+    private static ConexionBD INSTANCE = null;  
     private Statement statement;
-
     /**Método constructor que ejecuta el método para conectar con la base de datos
      *
      */
     private ConexionBD() {
         realizarConexion();
     }
-
     /**Crea una instancia de la base de datos en caso de no estar creada.
      *
      */
@@ -52,10 +49,10 @@ public class ConexionBD {
      */
     public void realizarConexion() {
 
-        String host = "127.0.0.1";//cambiar por tu host de la base de datos
+        String host = "localhost:3306";//cambiar por tu host de la base de datos
         String user = "root";//cambiar por tu usuario de la base de datos
-        String pass = "1234";//cambiar por tu contraseña de la base de datos
-        String dtbs = "test";//cambiar por tu nombre de la base de datos
+        String pass = "";//cambiar por tu contraseña de la base de datos
+        String dtbs = "mydb";//cambiar por tu nombre de la base de datos
 
         try { // preparamos la conexión
             Class.forName("com.mysql.jdbc.Driver");
@@ -92,8 +89,8 @@ public class ConexionBD {
    }
    
    public PreparedStatement builldPreparedStatement(String query) throws SQLException {
-	   PreparedStatement prepStmt = con.prepareStatement(query);
-	   return prepStmt;
+       PreparedStatement prepStmt = con.prepareStatement(query);
+       return prepStmt;
    }
     
 }

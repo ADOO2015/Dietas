@@ -12,14 +12,17 @@ public class AccessUser {
 	public String Accesa(String username, String password){
 		AccessUsuarioDAO busca = new AccessUsuarioDAO();
 		try {
-			Usuario myuser= busca.findByCorreo(username);
-			if(myuser==null)
-				tipo="NAU"; //Not An User
-			else 
-				if(myuser.getPassword().equals(password))
+			Usuario myuser= busca.findByUsuario(username);
+			Usuario myuser1 =busca.findByContrasena(password);
+			if(myuser==null){
+				tipo="UN"; //Not An User
+			if(myuser1==null)
+				tipo="PN";//P invalido
+			}
+			else if(myuser.getPassword().equals(password))
 					tipo=myuser.getTipo();
-				else
-					tipo="DNV";//Contrasena incorrecta.
+			else
+					tipo="incorrecto";//Contrasena incorrecta.
 			
 		} catch (SQLException e) {
 			e.printStackTrace();

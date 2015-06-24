@@ -70,9 +70,9 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 	@Override
 	public Usuario findByUsuario(String usuario) throws SQLException {
-		String queryByUser = "SELECT u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM Usuario as u"
-				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario";
-
+		String queryByUser = "SELECT u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM usuario as u"
+				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario where u.correo= ? ";
+		
 		PreparedStatement prepStmt = con.builldPreparedStatement(queryByUser);
 
 		prepStmt.setString(1, usuario);
@@ -88,14 +88,39 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 			usuarioObj.setApellidos(rs.getString("apellido"));
 			usuarioObj.setSexo(rs.getString("sexo"));
 			usuarioObj.setCorreo(rs.getString("correo"));
-			usuarioObj.setPassword(rs.getString("password"));
+			usuarioObj.setPassword(rs.getString("pass"));
 			usuarioObj.setTipo(rs.getString("Descripcion"));
 		}
 
 		return usuarioObj;
 
 	}
+	public Usuario findByContrasena(String password) throws SQLException {
+		String queryByUser = "SELECT u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM usuario as u"
+				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario where u.correo= ? ";
+		
+		PreparedStatement prepStmt = con.builldPreparedStatement(queryByUser);
 
+		prepStmt.setString(1, password);
+
+		ResultSet rs = prepStmt.executeQuery();
+
+		Usuario usuarioObj = null;
+
+		if (rs.next()) {
+			usuarioObj = new Usuario();
+			//usuarioObj.setUsuario(rs.getString("correo"));
+			usuarioObj.setNombre(rs.getString("nombre"));
+			usuarioObj.setApellidos(rs.getString("apellido"));
+			usuarioObj.setSexo(rs.getString("sexo"));
+			usuarioObj.setCorreo(rs.getString("correo"));
+			usuarioObj.setPassword(rs.getString("pass"));
+			usuarioObj.setTipo(rs.getString("Descripcion"));
+		}
+
+		return usuarioObj;
+
+	}
 	@Override
 	public void update(Usuario usuario) throws SQLException {
 		String updateUserSQL = "UPDATE USUARIO SET nombre = ?, "
