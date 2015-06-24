@@ -55,11 +55,12 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 		while (rs.next()) {
 			// datos de la tabla
 			Usuario usuario = new Usuario();
-			usuario.setUsuario(rs.getString("usuario"));
 			usuario.setNombre(rs.getString("nombre"));
-			usuario.setApellidos(rs.getString("apellidos"));
+			usuario.setApellidos(rs.getString("apellido"));
 			usuario.setCorreo(rs.getString("correo"));
-			usuario.setPassword(rs.getString("password"));
+			usuario.setCorreo(rs.getString("sexo"));
+			usuario.setCorreo(rs.getString("TipoUsuario_TipoUsuario"));
+			usuario.setPassword(rs.getString("pass"));
 
 			ls.add(usuario);
 		}
@@ -149,31 +150,31 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 				System.out.println("USUARIO " + usuario.getNombre());
 			}
 
-			Usuario usuario = usuarioDAO.findByUsuario("manager");
-
-			if (usuario != null) {
-				System.out.println("Usuario encontrado por nombre de usuario: " + usuario.getNombre() + " "
-						+ usuario.getApellidos());
-			}
-
-			Usuario otroUsuario = usuarioDAO.create("tester", "pedro",
-					"picapiedra", "pica@gmail.com", "picapass");
-			
-			System.out.println("Nuevo usuario " + otroUsuario.getNombre()
-					+ " " + otroUsuario.getApellidos());
-			
-			otroUsuario.setNombre("Pablo");
-			otroUsuario.setApellidos("Marmol");
-			
-			usuarioDAO.update(otroUsuario);
-			
-			Usuario usuarioModificado = usuarioDAO.findByUsuario("tester");
-			
-			if (usuarioModificado != null) {
-				System.out.println("Usuario modificado: " + usuarioModificado.getNombre() + " "
-						+ usuarioModificado.getApellidos());
-			}
-			
+//			Usuario usuario = usuarioDAO.findByUsuario("manager");
+//
+//			if (usuario != null) {
+//				System.out.println("Usuario encontrado por nombre de usuario: " + usuario.getNombre() + " "
+//						+ usuario.getApellidos());
+//			}
+//
+//			Usuario otroUsuario = usuarioDAO.create("tester", "pedro",
+//					"picapiedra", "pica@gmail.com", "picapass");
+//			
+//			System.out.println("Nuevo usuario " + otroUsuario.getNombre()
+//					+ " " + otroUsuario.getApellidos());
+//			
+//			otroUsuario.setNombre("Pablo");
+//			otroUsuario.setApellidos("Marmol");
+//			
+//			usuarioDAO.update(otroUsuario);
+//			
+//			Usuario usuarioModificado = usuarioDAO.findByUsuario("tester");
+//			
+//			if (usuarioModificado != null) {
+//				System.out.println("Usuario modificado: " + usuarioModificado.getNombre() + " "
+//						+ usuarioModificado.getApellidos());
+//			}
+//			
 			
 
 		} catch (SQLException e) {
