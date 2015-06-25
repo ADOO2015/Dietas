@@ -3,11 +3,17 @@
     Created on : 23/06/2015, 12:30:12 AM
     Author     : Nedorowsky
     --%>
-
-    <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <%
-  //tipo 2 autorizar pacientes, tipo 1 pcientes del doctor
-    int tipo =2;
+    <%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
+<%@page import="modelo.Usuario"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <%@page import = 
+    "modelo.AccessUsuarioDAO,
+    modelo.UsuarioDAO,
+    java.util.ArrayList"%>
+    <%!
+    	AccessUsuarioDAO pacientes = new AccessUsuarioDAO();
+    	ArrayList<Usuario> usuarios = (ArrayList)pacientes.findByMedico("6");
+    	
     %> 
     <!DOCTYPE html>
     <html>
@@ -52,11 +58,11 @@
                 <div class="panel-body">
                   <div class="list-group">
                     <a href="pacientesDoctor.jsp" class="list-group-item acve">
-                        <img src="iconos/pacientes.svg" id="icn"/> Pacientes
+                        <img src="img/iconos/pacientes.svg" id="icn"/> Pacientes
                     </a>
-                    <a href="#" class="list-group-item"><img src="iconos/agenda.svg" id="icn"/> Agenda
+                    <a href="#" class="list-group-item"><img src="img/iconos/agenda.svg" id="icn"/> Agenda
                     </a>
-                    <a href="confirmacionPacientes.jsp" class="list-group-item"><img src="iconos/registro.svg" id="icn"/> Registro de pacientes
+                    <a href="confirmacionPacientes.jsp" class="list-group-item"><img src="img/iconos/registro.svg" id="icn"/> Registro de pacientes
                     </a>
                 </div>
             </div>
@@ -74,17 +80,18 @@
   <div class="col-md-8">
     <div class="jumbotron">
         <table class="table">
-            <tr>
-                <td><img src="iconos/imagenGenerica3.svg"/></td>
-                <td><h4><%="#NOMBRE PACIENTE"%></h4><h4>Edad: <%="#EDAD"%></h4></td>
-                <td><a href="#"><img src="img/iconos/Dieta.svg" id="icn"/></a><a href="#"><img id="icn" src="img/iconos/mensajes.svg"/></a><a href="#"><img id="icn" src="iconos/historial.svg"/></a><a href="#"><img  id="icn" src="iconos/Progreso.svg"/></a><a href="#"><img src="iconos/perfil.svg" id="icn"/></a><a href="#"><img src="iconos/agenda.svg" id="icn"/></a></td> 
-            </tr>
-            <tr>
-                <td><img src="iconos/imagenGenerica3.svg"/></td>
-                <td><h4><%="#NOMBRE PACIENTE"%></h4><h4>Edad: <%="#EDAD"%></h4></td>
-                <td><a href="#"><img src="iconos/Dieta.svg" id="icn"/></a><a href="#"><img id="icn" src="iconos/mensajes.svg"/></a><a href="#"><img id="icn" src="iconos/historial.svg"/></a><a href="#"><img  id="icn" src="iconos/Progreso.svg"/></a><a href="#"><img src="iconos/perfil.svg" id="icn"/></a><a href="#"><img src="iconos/agenda.svg" id="icn"/></a></td>
-                
-            </tr>
+        <%
+        String salida = "";
+        for(int i = 0; i < usuarios.size(); i++){ 
+          salida = ""
+          	+"<tr>"
+                +"<td><img src= 'img/iconos/imagenGenerica3.svg' /></td>"
+                + "<td><h4>Nombre: " + usuarios.get(i).getNombre() + "</h4><h4>Apellidos:" + usuarios.get(i).getApellidos() + "</h4></td>"
+                +"<td><a href='#'><img src='img/iconos/Dieta.svg' id='icn'/></a><a href='#'><img id='icn' src='img/iconos/mensajes.svg'/></a><a href='#'><img id='icn' src='img/iconos/historial.svg'/></a><a href='#'><img  id='icn' src='img/iconos/Progreso.svg'/></a><a href='#'><img src='img/iconos/perfil.svg' id='icn'/></a><a href='#'><img src='img/iconos/agenda.svg' id='icn'/></a></td>" 
+            +"</tr>";
+    out.print(salida);
+        }
+        %>
         </table>                      
 </div>
 </div>

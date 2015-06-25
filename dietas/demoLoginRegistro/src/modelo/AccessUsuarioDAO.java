@@ -69,11 +69,44 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 	}
 
+	public Collection<Usuario> findByMedico(String idMedico) {
+		String queryAll = "SELECT * FROM Paciente p JOIN MedicoPaciente mp on p.idUsuarioPaciente = mp.Paciente_idUsuarioPaciente "
+				+ "JOIN Medico m on m.idUsuarioMedico = mp.Medico_idUsuarioMedico "
+				+ "JOIN Usuario u on p.idUsuarioPaciente = u.idUsuario "
+				+ "where m.idUsuarioMedico = " + idMedico; // example es el
+															// nombre de la
+		// tabla
+
+		ArrayList<Usuario> ls = new ArrayList<Usuario>();
+
+		try {
+			ResultSet rs = con.query(queryAll);
+			while (rs.next()) {
+				// datos de la tabla
+				Usuario usuario = new Usuario();
+				usuario.setNombre(rs.getString("nombre"));
+				usuario.setApellidos(rs.getString("apellido"));
+				usuario.setCorreo(rs.getString("correo"));
+				usuario.setCorreo(rs.getString("sexo"));
+				usuario.setCorreo(rs.getString("TipoUsuario_TipoUsuario"));
+				usuario.setPassword(rs.getString("pass"));
+
+				ls.add(usuario);
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return ls;
+
+	}
+
 	@Override
 	public Usuario findByUsuario(String usuario) throws SQLException {
 		String queryByUser = "SELECT u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM usuario as u"
 				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario where u.correo= ? ";
-		
+
 		PreparedStatement prepStmt = con.builldPreparedStatement(queryByUser);
 
 		prepStmt.setString(1, usuario);
@@ -84,7 +117,7 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 		if (rs.next()) {
 			usuarioObj = new Usuario();
-			//usuarioObj.setUsuario(rs.getString("correo"));
+			// usuarioObj.setUsuario(rs.getString("correo"));
 			usuarioObj.setNombre(rs.getString("nombre"));
 			usuarioObj.setApellidos(rs.getString("apellido"));
 			usuarioObj.setSexo(rs.getString("sexo"));
@@ -96,10 +129,11 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 		return usuarioObj;
 
 	}
+
 	public Usuario findByContrasena(String password) throws SQLException {
 		String queryByUser = "SELECT u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM usuario as u"
 				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario where u.correo= ? ";
-		
+
 		PreparedStatement prepStmt = con.builldPreparedStatement(queryByUser);
 
 		prepStmt.setString(1, password);
@@ -110,7 +144,7 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 		if (rs.next()) {
 			usuarioObj = new Usuario();
-			//usuarioObj.setUsuario(rs.getString("correo"));
+			// usuarioObj.setUsuario(rs.getString("correo"));
 			usuarioObj.setNombre(rs.getString("nombre"));
 			usuarioObj.setApellidos(rs.getString("apellido"));
 			usuarioObj.setSexo(rs.getString("sexo"));
@@ -122,13 +156,14 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 		return usuarioObj;
 
 	}
+
 	@Override
 	public void update(Usuario usuario) throws SQLException {
 		String updateUserSQL = "UPDATE USUARIO SET nombre = ?, "
 				+ "apellidos = ?, correo = ?, password = ? WHERE usuario = ?";
-		
+
 		PreparedStatement prepStmt = con.builldPreparedStatement(updateUserSQL);
-		
+
 		prepStmt.setString(1, usuario.getNombre());
 		prepStmt.setString(2, usuario.getApellidos());
 		prepStmt.setString(3, usuario.getCorreo());
@@ -145,37 +180,38 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 			ArrayList<Usuario> usuarios = (ArrayList<Usuario>) usuarioDAO
 					.findAll();
 			System.out.println("Iterando en toda la tabla");
-			
+
 			for (Usuario usuario : usuarios) {
 				System.out.println("USUARIO " + usuario.getNombre());
 			}
 
-//			Usuario usuario = usuarioDAO.findByUsuario("manager");
-//
-//			if (usuario != null) {
-//				System.out.println("Usuario encontrado por nombre de usuario: " + usuario.getNombre() + " "
-//						+ usuario.getApellidos());
-//			}
-//
-//			Usuario otroUsuario = usuarioDAO.create("tester", "pedro",
-//					"picapiedra", "pica@gmail.com", "picapass");
-//			
-//			System.out.println("Nuevo usuario " + otroUsuario.getNombre()
-//					+ " " + otroUsuario.getApellidos());
-//			
-//			otroUsuario.setNombre("Pablo");
-//			otroUsuario.setApellidos("Marmol");
-//			
-//			usuarioDAO.update(otroUsuario);
-//			
-//			Usuario usuarioModificado = usuarioDAO.findByUsuario("tester");
-//			
-//			if (usuarioModificado != null) {
-//				System.out.println("Usuario modificado: " + usuarioModificado.getNombre() + " "
-//						+ usuarioModificado.getApellidos());
-//			}
-//			
-			
+			// Usuario usuario = usuarioDAO.findByUsuario("manager");
+			//
+			// if (usuario != null) {
+			// System.out.println("Usuario encontrado por nombre de usuario: " +
+			// usuario.getNombre() + " "
+			// + usuario.getApellidos());
+			// }
+			//
+			// Usuario otroUsuario = usuarioDAO.create("tester", "pedro",
+			// "picapiedra", "pica@gmail.com", "picapass");
+			//
+			// System.out.println("Nuevo usuario " + otroUsuario.getNombre()
+			// + " " + otroUsuario.getApellidos());
+			//
+			// otroUsuario.setNombre("Pablo");
+			// otroUsuario.setApellidos("Marmol");
+			//
+			// usuarioDAO.update(otroUsuario);
+			//
+			// Usuario usuarioModificado = usuarioDAO.findByUsuario("tester");
+			//
+			// if (usuarioModificado != null) {
+			// System.out.println("Usuario modificado: " +
+			// usuarioModificado.getNombre() + " "
+			// + usuarioModificado.getApellidos());
+			// }
+			//
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -207,6 +243,10 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 		return usuarioObj;
 
+	}
+	
+	public void cerrarConexion(){
+		con.cerrarConexion();
 	}
 
 }
