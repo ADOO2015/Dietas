@@ -178,7 +178,7 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 		UsuarioDAO usuarioDAO = fact.getUsuarioDAO();
 		try {
 			ArrayList<Usuario> usuarios = (ArrayList<Usuario>) usuarioDAO
-					.findAll();
+					.getAllPregistered();
 			System.out.println("Iterando en toda la tabla");
 
 			for (Usuario usuario : usuarios) {
@@ -244,9 +244,31 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 		return usuarioObj;
 
 	}
-	
-	public void cerrarConexion(){
+
+	public void cerrarConexion() {
 		con.cerrarConexion();
 	}
 
+	@Override
+	public Collection<Usuario> getAllPregistered() throws SQLException {
+		String q = "SELECT * FROM USUARIO U INNER JOIN PACIENTE P ON U.IDUSUARIO = P.IDUSUARIOPACIENTE " 
+				+ "NATURAL JOIN ESTADOPACIENTE WHERE DESCESTADOPACIENTE = 'PreRegistro'";
+
+		ArrayList<Usuario> ls = new ArrayList<Usuario>();
+
+		ResultSet rs = con.query(q);
+
+		while (rs.next()) {
+			Usuario usuario = new Usuario();
+			usuario.setNombre(rs.getString("nombre"));
+			usuario.setApellidos(rs.getString("apellido"));
+			usuario.setCorreo(rs.getString("correo"));
+			usuario.setCorreo(rs.getString("sexo"));
+			usuario.setCorreo(rs.getString("TipoUsuario_TipoUsuario"));
+			usuario.setPassword(rs.getString("pass"));
+			ls.add(usuario);
+		}
+
+		return ls;
+	}
 }

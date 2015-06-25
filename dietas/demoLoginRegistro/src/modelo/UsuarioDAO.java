@@ -13,5 +13,7 @@ public interface UsuarioDAO {
 	
 	public Usuario findByCorreo(String correo) throws SQLException;
 	
+	public Collection<Usuario> getAllPregistered() throws SQLException;
+	
 	public void update(Usuario usuario) throws SQLException;
 }
