@@ -28,7 +28,7 @@ public class ControladorPreRegistro extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String correo="";
 		String contrasena="";
-		String confirmarContrasena="";
+		String confirmaContrasena="";
 		String nombre="";
 		String apellidos="";
 		String calle="";
@@ -38,7 +38,7 @@ public class ControladorPreRegistro extends HttpServlet {
 		
 		correo=request.getParameter("correo");
 		contrasena=request.getParameter("contrasena");
-		confirmarContrasena=request.getParameter("confirmaContrasena");
+		confirmaContrasena=request.getParameter("confirmaContrasena");
 		nombre=request.getParameter("nombre");
 		apellidos=request.getParameter("apellidos");
 		calle=request.getParameter("calle");
@@ -47,7 +47,7 @@ public class ControladorPreRegistro extends HttpServlet {
 		telefono=request.getParameter("telefono");
 		System.out.println(correo);
 		System.out.println(contrasena);
-		System.out.println(confirmarContrasena);
+		System.out.println(confirmaContrasena);
 		System.out.println(nombre);
 		System.out.println(apellidos);
 		System.out.println(calle);
