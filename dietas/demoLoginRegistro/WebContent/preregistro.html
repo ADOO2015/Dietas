@@ -36,53 +36,53 @@
 	<section>
 		<div class="container">
 			<div class="jumbotron">
-		<form class="form-horizontal">
+		<form class="form-horizontal" action="ControladorPreRegistro" method="get">
 			<fieldset>
 				<legend>Pre-registro</legend>
 				<div class="form-group">
 					<label for="correo" class="col-lg-2 control-label">Correo:</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="correo" placeholder="Correo">
+						<input name="correo" type="email" class="form-control" id="correo" placeholder="Correo">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="contrasena" class="col-lg-2 control-label">Contraseña:</label>
 					<div class="col-lg-10">
-						<input type="password" class="form-control" id="contrasena" placeholder="Contraseña">
+						<input name="contrasena"type="password" class="form-control" id="contrasena" placeholder="Contraseña">
 					</div>
 					<label for="confirmaContrasena" class="col-lg-2 control-label">Confirmar contraseña:</label>
 					<div class="col-lg-10">
-						<input type="password" class="form-control" id="confirmaContrasena" placeholder="Confirmar contraseña">
+						<input name="confirmarContrasena" type="password" class="form-control" id="confirmaContrasena" placeholder="Confirmar contraseña">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="nombreP" class="col-lg-2 control-label">Nombre:</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="nombreP" placeholder="Nombre">
+						<input name="nombre" type="text" class="form-control" id="nombreP" placeholder="Nombre">
 					</div>
 					<label for="apellidosP" class="col-lg-2 control-label">Apellidos:</label>
 					<div class="col-lg-10">
-						<input type="text" class="form-control" id="apellidosP" placeholder="Apellidos">
+						<input name="apellidos" type="text" class="form-control" id="apellidosP" placeholder="Apellidos">
 					</div>
 					<label for="calle" class="col-lg-2 control-label">Calle:</label>
 					<div class="col-lg-10">
 						
-						<input type="text" class="form-control" id="calle" placeholder="Calle">
+						<input name="calle" type="text" class="form-control" id="calle" placeholder="Calle">
 					</div>
 					<label for="numeroC" class="col-lg-2 control-label">Número:</label>
 					<div class="col-lg-10">
 						
-						<input type="text" class="form-control" id="numeroC" placeholder="#">
+						<input nombre="numeroConsulturio"type="text" class="form-control" id="numeroC" placeholder="#">
 					</div>
 					<label for="ciudad" class="col-lg-2 control-label">Ciudad:</label>
 					<div class="col-lg-10">
 						
-						<input type="text" class="form-control" id="ciudad" placeholder="Ciudad">
+						<input name="ciudad" type="text" class="form-control" id="ciudad" placeholder="Ciudad">
 					</div>
 					<label for="telefono" class="col-lg-2 control-label">Teléfono:</label>
 					<div class="col-lg-10">
 						
-						<input type="number" class="form-control" id="telefono" placeholder="telefono">
+						<input name="telefono" type="number" class="form-control" id="telefono" placeholder="telefono">
 					</div>
 				</div>
 				
