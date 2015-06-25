@@ -47,7 +47,7 @@ public class ControladorPreRegistro extends HttpServlet {
 		telefono=request.getParameter("telefono");
 		System.out.println(correo);
 		System.out.println(contrasena);
-		//System.out.println(confirmaContrasena);
+		System.out.println(confirmaContrasena);
 		System.out.println(nombre);
 		System.out.println(apellidos);
 		System.out.println(calle);
