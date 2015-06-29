@@ -32,29 +32,42 @@ public class ControladorPreRegistro extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// para la tabla usuario
 		String correo="";
 		String contrasena="";
 		String confirmaContrasena="";
 		String nombre="";
 		String apellidos="";
-		String calle="";
-		String numeroConsulturio="";
-		String ciudad="";
-		String telefono="";
+		String TipoUsuario="";
 		String sexo="";
 		
+		//para tabla tipousuario
+		// correo
+		String descripcion="Paciente";
+		
+		//para tabla direccion
+		String calle="";
+		String numeroExt="";
+		String ciudad="";
+		String telefono="";
+
+
+		
+		//Jala todos los datos del formulario y se inicializan
 		correo=request.getParameter("correo");
 		contrasena=request.getParameter("contrasena");
 		confirmaContrasena=request.getParameter("confirmaContrasena");
 		nombre=request.getParameter("nombre");
 		apellidos=request.getParameter("apellidos");
 		calle=request.getParameter("calle");
-		numeroConsulturio=request.getParameter("numeroConsulturio");
+		numeroExt=request.getParameter("numeroExt");
 		ciudad=request.getParameter("ciudad");
 		telefono=request.getParameter("telefono");
 		sexo=request.getParameter("sexo");
 		AccessUsuarioDAO gestor=new AccessUsuarioDAO();
 		String us="";
+		
 		try {
 			us=gestor.isUserResgistered(correo);
 			//System.out.println("usuario: "+us.getNombre());
@@ -66,8 +79,13 @@ public class ControladorPreRegistro extends HttpServlet {
 		
 		if(contrasena.equals(confirmaContrasena)&&us.equals("")){//si las contraseÃ±as son iguales se procesan
 		try {
-			gestor.insertUser(nombre, apellidos, correo, contrasena,sexo);
-			gestor.insertPaciente(gestor.getIdUsuarioPaciente(correo), "1", "1", "1");
+			//se registra en tabla tipousuario, obtenemos TipoUsuario
+			gestor.insertinTipoUsuario(correo, descripcion);
+			TipoUsuario=gestor.getIdTipoUsuario(correo);
+			//registramos en tabla Usuario
+			gestor.insertinUsuario(nombre, apellidos, correo, contrasena,sexo,TipoUsuario);
+			//registramos en tabla dirección
+			gestor.insertinDireccion(ciudad, calle, numeroExt);
 		} catch (SQLException e) {
 						e.printStackTrace();
 						System.out.println("Error al insertar usuario");

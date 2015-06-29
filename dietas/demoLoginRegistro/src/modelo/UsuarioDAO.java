@@ -17,14 +17,20 @@ public interface UsuarioDAO {
 	
 	public void update(Usuario usuario) throws SQLException;
 	
-	public void insertUser(String nombre, String apellidos, String correo, String password,String sexo) throws SQLException;
+	public void insertinUsuario(String nombre, String apellidos, String correo, String password,String sexo,String TipoUsuario) throws SQLException;
 	
 	public String isUserResgistered(String correo) throws SQLException;
 	
 	public String getIdUsuarioPaciente(String correo) throws SQLException;
 	
-	public void insertPaciente(String idUsuarioPaciente, String idEstadoPaciente , String idDireccion,
-			String FlgPreregistro) throws SQLException;
-}
+	public String getIdTipoUsuario(String correo) throws SQLException;
+	
+	public void insertinTipoUsuario(String correo,String descripcion) throws SQLException;
+	
+	public void insertinDireccion(String ciudad,String calle,String numeroExt) throws SQLException;
+	
+	public void insertPaciente(String ciudad, String calle , String numeroExt) throws SQLException;
 
 }
+
+

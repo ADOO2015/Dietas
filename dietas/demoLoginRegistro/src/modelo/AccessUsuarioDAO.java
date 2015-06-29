@@ -272,14 +272,7 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 		return ls;
 	}
 	
-	@Override
-	public void insertUser(String nombre, String apellidos, String correo,
-			String password,String sexo) throws SQLException {
-		String insertQuery = "INSERT INTO Usuario"
-				+ "(nombre, apellido, correo, pass,sexo,TipoUsuario_TipoUsuario) VALUES"
-				+ "('"+nombre+"','"+apellidos+"','"+correo+"','"+password+"','"+sexo+"',2)";
-		con.insert(insertQuery);
-	}
+
 
 	@Override
 	public String isUserResgistered(String correo) throws SQLException {
@@ -291,16 +284,7 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 		return nombre;
 	}
 
-	@Override
-	public void insertPaciente(String idUsuarioPaciente,
-			String idEstadoPaciente, String idDireccion, String FlgPreregistro)
-			throws SQLException {
-			String insertQuery = "INSERT INTO Paciente"
-					+ "(idUsuarioPaciente, idEstadoPaciente, idDireccion, FlgPreregistro) VALUES"
-					+ "("+idUsuarioPaciente+","+idEstadoPaciente+","+idDireccion+","+FlgPreregistro+")";
-			con.insert(insertQuery);
-		
-	}
+
 
 	@Override
 	public String getIdUsuarioPaciente(String correo) throws SQLException {
@@ -310,5 +294,52 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 		while(res.next())
 		id=res.getString("idUsuario");
 		return id;
+	}
+
+	@Override
+	public void insertinTipoUsuario(String correo, String descripcion)
+			throws SQLException {
+		String insertQuery = "INSERT INTO tipousuario"
+				+ "(correo,Descripcion) VALUES"
+				+ "("+correo+","+descripcion+")";
+		con.insert(insertQuery);
+	}
+
+	@Override
+	public String getIdTipoUsuario(String correo) throws SQLException {
+		String query="SELECT TipoUsuario from tipousuario where correo='"+correo+"'";
+		ResultSet res=con.query(query);
+		String id="";
+		while(res.next())
+		id=res.getString("TipoUsuario");
+		return id;
+	}
+
+	@Override
+	public void insertinUsuario(String nombre, String apellidos, String correo,
+			String password, String sexo, String TipoUsuario)
+			throws SQLException {
+		String insertQuery = "INSERT INTO Usuario"
+				+ "(nombre, apellido, correo, pass,sexo,TipoUsuario_TipoUsuario) VALUES"
+				+ "('"+nombre+"','"+apellidos+"','"+correo+"','"+password+"','"+sexo+"',"+TipoUsuario+")";
+		con.insert(insertQuery);
+		
+	}
+
+	@Override
+	public void insertinDireccion(String ciudad, String calle,String numeroExt)
+			throws SQLException {
+		String insertQuery = "INSERT INTO direccion"
+				+ "(ciudad, calle, numeroExt) VALUES"
+				+ "('"+ciudad+"','"+calle+"','"+numeroExt+"')";
+		con.insert(insertQuery);
+		
+	}
+
+	@Override
+	public void insertPaciente(String ciudad, String calle, String numeroExt)
+			throws SQLException {
+		// TODO Auto-generated method stub
+		
 	}
 }
