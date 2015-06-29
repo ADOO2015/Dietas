@@ -18,7 +18,7 @@ import modelo.UsuarioDAO;
 /**
  * Servlet implementation class ConfirmacionPacientesControlador
  */
-@WebServlet("/ConfirmacionPacientesControlador")
+@WebServlet("/confirmacionPacientes")
 public class ConfirmacionPacientesControlador extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -36,17 +36,20 @@ public class ConfirmacionPacientesControlador extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DAOFactoria fact = DAOFactoria.getDAOFactoria(1);
 		UsuarioDAO usuarioDAO = fact.getUsuarioDAO();
+		String q = request.getParameter("q");
 		Collection<Usuario> usuarios = null;
 		
 		try {
-			usuarios = usuarioDAO.getAllPregistered();
+			if (q != null) {
+				usuarios = usuarioDAO.bySearchPregistered(q);
+			} 
+			else{
+				usuarios = usuarioDAO.getAllPregistered();
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
-			if (usuarios.size() != 0) {
-				request.setAttribute("hola", "HOLA");
-			}
 			request.setAttribute("usuariosPreregistrados", usuarios);
 		}
 		

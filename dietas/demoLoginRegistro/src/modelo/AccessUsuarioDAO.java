@@ -58,8 +58,8 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 			usuario.setNombre(rs.getString("nombre"));
 			usuario.setApellidos(rs.getString("apellido"));
 			usuario.setCorreo(rs.getString("correo"));
-			usuario.setCorreo(rs.getString("sexo"));
-			usuario.setCorreo(rs.getString("TipoUsuario_TipoUsuario"));
+			usuario.setSexo(rs.getString("sexo"));
+			usuario.setTipo(rs.getString("TipoUsuario_TipoUsuario"));
 			usuario.setPassword(rs.getString("pass"));
 
 			ls.add(usuario);
@@ -263,8 +263,8 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 			usuario.setNombre(rs.getString("nombre"));
 			usuario.setApellidos(rs.getString("apellido"));
 			usuario.setCorreo(rs.getString("correo"));
-			usuario.setCorreo(rs.getString("sexo"));
-			usuario.setCorreo(rs.getString("TipoUsuario_TipoUsuario"));
+			usuario.setSexo(rs.getString("sexo"));
+			usuario.setTipo(rs.getString("TipoUsuario_TipoUsuario"));
 			usuario.setPassword(rs.getString("pass"));
 			ls.add(usuario);
 		}
@@ -341,5 +341,34 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 			throws SQLException {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Collection<Usuario> bySearchPregistered(String q)
+			throws SQLException {
+		String searchQuery = "SELECT * FROM USUARIO U INNER JOIN PACIENTE P ON U.IDUSUARIO = P.IDUSUARIOPACIENTE " 
+				+ "NATURAL JOIN ESTADOPACIENTE WHERE (nombre LIKE ? OR apellido LIKE ? OR correo LIKE ?) AND DESCESTADOPACIENTE = 'PreRegistro'";
+
+		PreparedStatement prepStmt = con.builldPreparedStatement(searchQuery);
+		ArrayList<Usuario> ls = new ArrayList<Usuario>();
+		
+		prepStmt.setString(1, "%" + q + "%");
+		prepStmt.setString(2, "%" + q + "%");
+		prepStmt.setString(3, "%" + q + "%");
+		
+		ResultSet rs = prepStmt.executeQuery();
+
+		while (rs.next()) {
+			Usuario usuario = new Usuario();
+			usuario.setNombre(rs.getString("nombre"));
+			usuario.setApellidos(rs.getString("apellido"));
+			usuario.setCorreo(rs.getString("correo"));
+			usuario.setSexo(rs.getString("sexo"));
+			usuario.setTipo(rs.getString("TipoUsuario_TipoUsuario"));
+			usuario.setPassword(rs.getString("pass"));
+			ls.add(usuario);
+		}
+
+		return ls;
 	}
 }

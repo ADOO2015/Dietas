@@ -15,6 +15,8 @@ public interface UsuarioDAO {
 	
 	public Collection<Usuario> getAllPregistered() throws SQLException;
 	
+	public Collection<Usuario> bySearchPregistered(String q) throws SQLException;
+	
 	public void update(Usuario usuario) throws SQLException;
 	
 	public void insertinUsuario(String nombre, String apellidos, String correo, String password,String sexo,String TipoUsuario) throws SQLException;
