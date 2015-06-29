@@ -271,4 +271,44 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 		return ls;
 	}
+	
+	@Override
+	public void insertUser(String nombre, String apellidos, String correo,
+			String password,String sexo) throws SQLException {
+		String insertQuery = "INSERT INTO Usuario"
+				+ "(nombre, apellido, correo, pass,sexo,TipoUsuario_TipoUsuario) VALUES"
+				+ "('"+nombre+"','"+apellidos+"','"+correo+"','"+password+"','"+sexo+"',2)";
+		con.insert(insertQuery);
+	}
+
+	@Override
+	public String isUserResgistered(String correo) throws SQLException {
+		String query="SELECT nombre from Usuario where correo='"+correo+"'";
+		ResultSet res=con.query(query);
+		String nombre="";
+		while(res.next())
+		nombre=res.getString("nombre");
+		return nombre;
+	}
+
+	@Override
+	public void insertPaciente(String idUsuarioPaciente,
+			String idEstadoPaciente, String idDireccion, String FlgPreregistro)
+			throws SQLException {
+			String insertQuery = "INSERT INTO Paciente"
+					+ "(idUsuarioPaciente, idEstadoPaciente, idDireccion, FlgPreregistro) VALUES"
+					+ "("+idUsuarioPaciente+","+idEstadoPaciente+","+idDireccion+","+FlgPreregistro+")";
+			con.insert(insertQuery);
+		
+	}
+
+	@Override
+	public String getIdUsuarioPaciente(String correo) throws SQLException {
+		String query="SELECT idUsuario from Usuario where correo='"+correo+"'";
+		ResultSet res=con.query(query);
+		String id="";
+		while(res.next())
+		id=res.getString("idUsuario");
+		return id;
+	}
 }

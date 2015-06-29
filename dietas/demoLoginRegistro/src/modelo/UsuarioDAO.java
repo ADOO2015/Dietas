@@ -16,4 +16,15 @@ public interface UsuarioDAO {
 	public Collection<Usuario> getAllPregistered() throws SQLException;
 	
 	public void update(Usuario usuario) throws SQLException;
+	
+	public void insertUser(String nombre, String apellidos, String correo, String password,String sexo) throws SQLException;
+	
+	public String isUserResgistered(String correo) throws SQLException;
+	
+	public String getIdUsuarioPaciente(String correo) throws SQLException;
+	
+	public void insertPaciente(String idUsuarioPaciente, String idEstadoPaciente , String idDireccion,
+			String FlgPreregistro) throws SQLException;
+}
+
 }
