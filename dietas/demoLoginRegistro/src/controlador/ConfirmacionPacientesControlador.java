@@ -42,6 +42,7 @@ public class ConfirmacionPacientesControlador extends HttpServlet {
 		try {
 			if (q != null) {
 				usuarios = usuarioDAO.bySearchPregistered(q);
+				request.setAttribute("q", q);
 			} 
 			else{
 				usuarios = usuarioDAO.getAllPregistered();
