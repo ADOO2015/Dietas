@@ -104,9 +104,9 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 	@Override
 	public Usuario findByUsuario(String usuario) throws SQLException {
-		String queryByUser = "SELECT u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM usuario as u"
-				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario where u.correo= ? ";
-
+		String queryByUser = "SELECT d.estado,d.delMun,d.colonia,d.cp,d.calle,d.numExt,d.numInt, u.idUsuario,u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM direccion as d INNER JOIN usuario as u on d.idDireccion=u.idUsuario "
+				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario  where u.correo= ? ";
+		
 		PreparedStatement prepStmt = con.builldPreparedStatement(queryByUser);
 
 		prepStmt.setString(1, usuario);
@@ -117,23 +117,32 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 		if (rs.next()) {
 			usuarioObj = new Usuario();
-			// usuarioObj.setUsuario(rs.getString("correo"));
+			//usuarioObj.setUsuario(rs.getString("correo"));
+			usuarioObj.setId(rs.getString("idUsuario"));
 			usuarioObj.setNombre(rs.getString("nombre"));
 			usuarioObj.setApellidos(rs.getString("apellido"));
 			usuarioObj.setSexo(rs.getString("sexo"));
 			usuarioObj.setCorreo(rs.getString("correo"));
 			usuarioObj.setPassword(rs.getString("pass"));
 			usuarioObj.setTipo(rs.getString("Descripcion"));
+			Direccion dir = new Direccion();
+			dir.setEstado(rs.getString("estado"));
+			dir.setDelmun(rs.getString("delMun"));
+			dir.setColonia(rs.getString("colonia"));
+			dir.setCp(rs.getString("cp"));
+			dir.setNumE(rs.getString("numExt"));
+			dir.setNumI(rs.getString("numInt"));
+			usuarioObj.setDireccion(dir);
 		}
 
 		return usuarioObj;
 
 	}
-
 	public Usuario findByContrasena(String password) throws SQLException {
-		String queryByUser = "SELECT u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM usuario as u"
-				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario where u.correo= ? ";
-
+		String queryByUser = "SELECT d.estado,d.delMun,d.colonia,d.cp,d.calle,d.numExt,d.numInt, u.idUsuario,u.nombre,u.apellido,u.sexo,u.correo,u.pass,t.Descripcion FROM direccion as d INNER JOIN usuario as u on d.idDireccion=u.idUsuario "
+				+ " INNER JOIN TipoUsuario as t ON u.idUsuario=t.TipoUsuario  where u.pass= ? ";
+		
+		
 		PreparedStatement prepStmt = con.builldPreparedStatement(queryByUser);
 
 		prepStmt.setString(1, password);
@@ -144,13 +153,23 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 		if (rs.next()) {
 			usuarioObj = new Usuario();
-			// usuarioObj.setUsuario(rs.getString("correo"));
+			//usuarioObj.setUsuario(rs.getString("correo"));
+			usuarioObj.setId(rs.getString("idUsuario"));
 			usuarioObj.setNombre(rs.getString("nombre"));
 			usuarioObj.setApellidos(rs.getString("apellido"));
 			usuarioObj.setSexo(rs.getString("sexo"));
 			usuarioObj.setCorreo(rs.getString("correo"));
 			usuarioObj.setPassword(rs.getString("pass"));
 			usuarioObj.setTipo(rs.getString("Descripcion"));
+			Direccion dir = new Direccion();
+			dir.setEstado(rs.getString("estado"));
+			dir.setDelmun(rs.getString("delMun"));
+			dir.setColonia(rs.getString("colonia"));
+			dir.setCp(rs.getString("cp"));
+			dir.setNumE(rs.getString("numExt"));
+			dir.setNumI(rs.getString("numInt"));
+			usuarioObj.setDireccion(dir);
+			
 		}
 
 		return usuarioObj;

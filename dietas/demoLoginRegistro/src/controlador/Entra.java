@@ -10,9 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class Entra
- */
 @WebServlet("/Entra")
 public class Entra extends HttpServlet {
 	private String tipo;
@@ -39,22 +36,16 @@ public class Entra extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		AccessUser a= new AccessUser();
 		tipo=a.Accesa(request.getParameter("txtEmail"), request.getParameter("txtPass"));
-		ServletOutputStream salida = response.getOutputStream();
 		response.setContentType("text/html");
 		HttpSession sesion = request.getSession();
+		
 		sesion.setAttribute("tipo", tipo);
-		if(tipo.equals("UN")){
+		if(tipo.equals("UN") || tipo.equals("PN")||tipo.equals("incorrecto")){
 			response.sendRedirect("index.jsp");
-		}else if(tipo.equals("PN")){
-			response.sendRedirect("index.jsp");
-		}else if(tipo.equals("incorrecto")){
-			response.sendRedirect("index.html");
-		}else if(tipo.equals("Médico")){
+		}else if(tipo.equals("Médico") || tipo.equals("Paciente")){
+			sesion.setAttribute("Usuario",a.getUsuario());
 			response.sendRedirect("doctor.jsp");
-		}else if(tipo.equals("Paciente")){
-			response.sendRedirect("doctor.jsp");
-			
-				}
+		}
 	}
 
 }

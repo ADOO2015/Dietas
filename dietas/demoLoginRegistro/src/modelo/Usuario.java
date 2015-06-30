@@ -1,9 +1,8 @@
-package modelo;
+	package modelo;
 
 public class Usuario {
-	
 	private String usuario;
-	
+	private Direccion direccion;
 	private String nombre;
 	
 	private String apellidos;
@@ -16,6 +15,14 @@ public class Usuario {
 
 	private String sexo;
 	
+	private String id;
+	
+	public String getSexo(){
+		return sexo;
+	}
+	public String getId(){
+		return id;
+	}
 	public String getTipo() {
 		return tipo;
 	}
@@ -66,6 +73,16 @@ public class Usuario {
 
 	public void setSexo(String sexo) {
 		this.sexo=sexo;
+	}
+
+	public void setId(String id) {
+		this.id=id;
+	}
+	public Direccion getDireccion() {
+		return direccion;
+	}
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
 	}
 	
 	
