@@ -39,18 +39,14 @@ public class ControladorPreRegistro extends HttpServlet {
 		String confirmaContrasena="";
 		String nombre="";
 		String apellidos="";
-		String TipoUsuario="";
+		String TipoUsuario="1";
 		String sexo="";
-		
-		//para tabla tipousuario
-		// correo
-		String descripcion="Paciente";
+	
 		
 		//para tabla direccion
 		String calle="";
 		String numeroExt="";
 		String ciudad="";
-		String telefono="";
 
 
 		
@@ -63,7 +59,6 @@ public class ControladorPreRegistro extends HttpServlet {
 		calle=request.getParameter("calle");
 		numeroExt=request.getParameter("numeroExt");
 		ciudad=request.getParameter("ciudad");
-		telefono=request.getParameter("telefono");
 		sexo=request.getParameter("sexo");
 		AccessUsuarioDAO gestor=new AccessUsuarioDAO();
 		String us="";
@@ -79,9 +74,7 @@ public class ControladorPreRegistro extends HttpServlet {
 		
 		if(contrasena.equals(confirmaContrasena)&&us.equals("")){//si las contraseÃ±as son iguales se procesan
 		try {
-			//se registra en tabla tipousuario, obtenemos TipoUsuario
-			gestor.insertinTipoUsuario(correo, descripcion);
-			TipoUsuario=gestor.getIdTipoUsuario(correo);
+
 			//registramos en tabla Usuario
 			gestor.insertinUsuario(nombre, apellidos, correo, contrasena,sexo,TipoUsuario);
 			//registramos en tabla dirección
