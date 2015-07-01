@@ -9,11 +9,14 @@
     <%@page import = 
     "modelo.AccessUsuarioDAO,
     modelo.UsuarioDAO,
+    modelo.Usuario,
     java.util.ArrayList"%>
     <%!
+    	Usuario user = (Usuario)getServletContext().getAttribute("Usuario");
+    %>
+    <%!
     	AccessUsuarioDAO pacientes = new AccessUsuarioDAO();
-    	ArrayList<Usuario> usuarios = (ArrayList)pacientes.findByMedico("6");
-    	
+    	ArrayList<Usuario> usuarios = (ArrayList)pacientes.findByMedico(user.getId());    	
     %> 
     <!DOCTYPE html>
     <html>
@@ -82,15 +85,19 @@
         <table class="table">
         <%
         String salida = "";
-        for(int i = 0; i < usuarios.size(); i++){ 
-          salida = ""
-          	+"<tr>"
-                +"<td><img src= 'img/iconos/imagenGenerica3.svg' /></td>"
-                + "<td><h4>Nombre: " + usuarios.get(i).getNombre() + "</h4><h4>Apellidos:" + usuarios.get(i).getApellidos() + "</h4></td>"
-                +"<td><a href='#'><img src='img/iconos/Dieta.svg' id='icn'/></a><a href='#'><img id='icn' src='img/iconos/mensajes.svg'/></a><a href='#'><img id='icn' src='img/iconos/historial.svg'/></a><a href='#'><img  id='icn' src='img/iconos/Progreso.svg'/></a><a href='#'><img src='img/iconos/perfil.svg' id='icn'/></a><a href='#'><img src='img/iconos/agenda.svg' id='icn'/></a></td>" 
-            +"</tr>";
-    out.print(salida);
+        if(user != null){
+        	for(int i = 0; i < usuarios.size(); i++){ 
+         	 salida = ""
+          		+"<tr>"
+           	     +"<td><img src= 'img/iconos/imagenGenerica3.svg' /></td>"
+            	    + "<td><h4>Nombre: " + usuarios.get(i).getNombre() + "</h4><h4>Apellidos:" + usuarios.get(i).getApellidos() + "</h4></td>"
+            	    +"<td><a href='#'><img src='img/iconos/Dieta.svg' id='icn'/></a><a href='#'><img id='icn' src='img/iconos/mensajes.svg'/></a><a href='#'><img id='icn' src='img/iconos/historial.svg'/></a><a href='#'><img  id='icn' src='img/iconos/Progreso.svg'/></a><a href='#'><img src='img/iconos/perfil.svg' id='icn'/></a><a href='#'><img src='img/iconos/agenda.svg' id='icn'/></a></td>" 
+           	 +"</tr>";
+          	out.print(salida);
+       		 }
         }
+        else
+        	salida = "<tr><td>No tiene pacientes registrados</td></tr>";
         %>
         </table>                      
 </div>
