@@ -42,7 +42,7 @@ public class Entra extends HttpServlet {
 		sesion.setAttribute("tipo", tipo);
 		if(tipo.equals("UN") || tipo.equals("PN")||tipo.equals("incorrecto")){
 			response.sendRedirect("index.jsp");
-		}else if(tipo.equals("Médico") || tipo.equals("Paciente")){
+		}else if(tipo.equals("Medico") || tipo.equals("Paciente")){
 			sesion.setAttribute("Usuario",a.getUsuario());
 			response.sendRedirect("doctor.jsp");
 		}
