@@ -46,7 +46,7 @@ public class ControladorPreRegistro extends HttpServlet {
 		//para tabla direccion
 		String calle="";
 		String numeroExt="";
-		String ciudad="";
+		String delMun="";
 
 
 		
@@ -58,14 +58,13 @@ public class ControladorPreRegistro extends HttpServlet {
 		apellidos=request.getParameter("apellidos");
 		calle=request.getParameter("calle");
 		numeroExt=request.getParameter("numeroExt");
-		ciudad=request.getParameter("ciudad");
+		delMun=request.getParameter("ciudad");
 		sexo=request.getParameter("sexo");
 		AccessUsuarioDAO gestor=new AccessUsuarioDAO();
 		String us="";
 		
 		try {
 			us=gestor.isUserResgistered(correo);
-			//System.out.println("usuario: "+us.getNombre());
 		} catch (SQLException e1) {
 			System.out.println("Error buscando usuario por correo");
 			e1.printStackTrace();
@@ -77,13 +76,16 @@ public class ControladorPreRegistro extends HttpServlet {
 
 			//registramos en tabla Usuario
 			gestor.insertinUsuario(nombre, apellidos, correo, contrasena,sexo,TipoUsuario);
-			//registramos en tabla dirección
-			gestor.insertinDireccion(ciudad, calle, numeroExt);
+			//registramos en tabla direccion
+			gestor.insertinDireccion(delMun, calle, numeroExt);
+			String idDireccion=gestor.selectLastID();
+			System.out.println(idDireccion);
+			gestor.insertPaciente(gestor.getIdUsuario(correo), "0", idDireccion);
 		} catch (SQLException e) {
 						e.printStackTrace();
 						System.out.println("Error al insertar usuario");
 		}
-		response.sendRedirect("index.html");
+		response.sendRedirect("index.jsp");
 		}else{
 			response.sendRedirect("ErrorPassPreRegistro.html");
 		}
