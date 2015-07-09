@@ -23,7 +23,7 @@ public interface UsuarioDAO {
 	
 	public String isUserResgistered(String correo) throws SQLException;
 	
-	public String getIdUsuarioPaciente(String correo) throws SQLException;
+	public String getIdUsuario(String correo) throws SQLException;
 	
 	public String getIdTipoUsuario(String correo) throws SQLException;
 	
@@ -31,7 +31,9 @@ public interface UsuarioDAO {
 	
 	public void insertinDireccion(String ciudad,String calle,String numeroExt) throws SQLException;
 	
-	public void insertPaciente(String ciudad, String calle , String numeroExt) throws SQLException;
+	public void insertPaciente(String idUsuarioPaciente, String idEstadoPaciente , String idDireccion) throws SQLException;
+	
+	public String selectLastID() throws SQLException;
 
 }
 
