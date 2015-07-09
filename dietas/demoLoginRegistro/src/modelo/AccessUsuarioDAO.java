@@ -306,7 +306,7 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 
 
 	@Override
-	public String getIdUsuarioPaciente(String correo) throws SQLException {
+	public String getIdUsuario(String correo) throws SQLException {
 		String query="SELECT idUsuario from Usuario where correo='"+correo+"'";
 		ResultSet res=con.query(query);
 		String id="";
@@ -346,20 +346,32 @@ public class AccessUsuarioDAO implements UsuarioDAO {
 	}
 
 	@Override
-	public void insertinDireccion(String ciudad, String calle,String numeroExt)
+	public void insertinDireccion(String delMun, String calle,String numeroExt)
 			throws SQLException {
-		String insertQuery = "INSERT INTO direccion"
-				+ "(ciudad, calle, numeroExt) VALUES"
-				+ "('"+ciudad+"','"+calle+"','"+numeroExt+"')";
+		String insertQuery = "INSERT INTO Direccion"
+				+ "(delMun, calle, numExt) VALUES"
+				+ "('"+delMun+"','"+calle+"','"+numeroExt+"')";
 		con.insert(insertQuery);
-		
 	}
 
 	@Override
-	public void insertPaciente(String ciudad, String calle, String numeroExt)
-			throws SQLException {
-		// TODO Auto-generated method stub
-		
+	public void insertPaciente(String idUsuarioPaciente, String idEstadoPaciente , String idDireccion)
+			throws SQLException {	
+		String insertQuery = "INSERT INTO Paciente"
+				+ "(idUsuarioPaciente, idEstadoPaciente, idDireccion) VALUES"
+				+ "('"+idUsuarioPaciente+"','"+idEstadoPaciente+"','"+idDireccion+"')";
+		con.insert(insertQuery);
+	}
+	
+
+	@Override
+	public String selectLastID() throws SQLException {
+		String query="SELECT LAST_INSERT_ID()";
+		ResultSet res=con.query(query);
+		String id=null;
+		while(res.next())
+		id=res.getString(1);
+		return id;
 	}
 
 	@Override
